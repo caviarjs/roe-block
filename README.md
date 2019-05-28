@@ -25,9 +25,45 @@ $ npm i @caviar/roe-block
 
 ## Usage
 
+In `caviar.config.js`
+
 ```js
-const roe_block = require('@caviar/roe-block')
+module.exports = {
+  server (appInfo, config) {
+    // change config
+    return config
+  },
+
+  router (app, apply) {
+    const {router} = app
+    router.get('/foo', controller)
+
+    apply(app)
+  }
+}
 ```
+
+## Hooks
+
+### ...builtInBlockHooks
+
+See [Caviar Blocks]
+
+### serverConfig `SyncHook`
+
+Triggered after the next config is generated and before using.
+
+Callback parameters:
+
+- **serverConfig**
+- **caviarOptions**
+
+### routerConfig
+
+Triggered after webpack config is generated and before using.
+
+- **routerConfig**
+- **caviarOptions**
 
 ## License
 
