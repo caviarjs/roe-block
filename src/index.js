@@ -1,4 +1,3 @@
-const {parse} = require('url')
 const {isFunction, isObject} = require('core-util-is')
 const {Roe} = require('roe')
 const {
@@ -91,7 +90,9 @@ module.exports = class RoeBlock extends Block {
     }
 
     this.hooks = {
-      server: new SyncHook(['serverConfig', 'caviarOptions'])
+      serverConfig: new SyncHook(['serverConfig', 'caviarOptions']),
+      beforeLoadRouter: new SyncHook(['app', 'caviarOptions']),
+      routerLoaded: new SyncHook(['app', 'caviarOptions']),
     }
   }
 
@@ -99,15 +100,10 @@ module.exports = class RoeBlock extends Block {
     // do nothing
   }
 
-  // Override
-  // - config `Object` the composed configuration
-  // - caviarOptions `Object`
-  //   - cwd
-  //   - dev
-  async _ready (config, caviarOptions) {
+  _create (config, caviarOptions) {
     const {cwd, pkg} = caviarOptions
 
-    const app = new Roe({
+    return new Roe({
       // framework,
       baseDir: cwd,
       https: false,
@@ -119,17 +115,37 @@ module.exports = class RoeBlock extends Block {
         return serverConfig
       }
     })
+  }
 
-    return new Promise((resolve, reject) => {
+  // Override
+  // - config `Object` the composed configuration
+  // - caviarOptions `Object`
+  //   - cwd
+  //   - dev
+  async _ready (config, caviarOptions) {
+    const app = this.outlet
+
+    // Load roe
+    await new Promise((resolve, reject) => {
       app.ready(err => {
         if (err) {
           reject(err)
           return
         }
 
-        resolve(app)
+        resolve()
       })
     })
+
+    this.hooks.beforeLoadRouter.call(app, caviarOptions)
+
+    if (config.router) {
+      config.router(app)
+    }
+
+    this.hooks.routerLoaded.call(app, caviarOptions)
+
+    return app
   }
 
   // Custom public methods

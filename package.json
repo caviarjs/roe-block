@@ -38,15 +38,17 @@
     "url": "https://github.com/caviarjs/roe-block/issues"
   },
   "devDependencies": {
-    "@ostai/eslint-config": "^3.1.0",
+    "@ostai/eslint-config": "^3.1.1",
     "ava": "^1.4.1",
-    "codecov": "^3.4.0",
+    "codecov": "^3.5.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-import": "^2.17.3",
     "nyc": "^14.1.1"
   },
   "dependencies": {
+    "core-util-is": "^1.0.2",
     "err-object": "^4.5.0",
-    "roe": "^2.1.0"
+    "roe": "^2.1.1",
+    "tapable": "^1.1.3"
   }
 }
