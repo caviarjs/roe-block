@@ -86,13 +86,19 @@ module.exports = class RoeBlock extends Block {
         type: 'compose',
         optional: true,
         compose: composeRouter
+      },
+
+      port: {
+        type: 'bailTop',
+        optional: true
       }
     }
 
     this.hooks = {
       serverConfig: new SyncHook(['serverConfig', 'caviarOptions']),
-      beforeLoadRouter: new SyncHook(['app', 'caviarOptions']),
       routerLoaded: new SyncHook(['app', 'caviarOptions']),
+      loaded: new SyncHook(['app', 'caviarOptions']),
+      listening: new SyncHook(['app', 'caviarOptions'])
     }
   }
 
@@ -137,13 +143,17 @@ module.exports = class RoeBlock extends Block {
       })
     })
 
-    this.hooks.beforeLoadRouter.call(app, caviarOptions)
-
     if (config.router) {
       config.router(app)
+      this.hooks.routerLoaded.call(app, caviarOptions)
     }
 
-    this.hooks.routerLoaded.call(app, caviarOptions)
+    this.hooks.loaded.call(app, caviarOptions)
+
+    if (config.port) {
+      await new Promise()
+      this.hooks.listening.call(app, caviarOptions)
+    }
 
     return app
   }
