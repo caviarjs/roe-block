@@ -151,8 +151,11 @@ module.exports = class RoeBlock extends Block {
     this.hooks.loaded.call(app, caviarOptions)
 
     if (config.port) {
-      await new Promise()
-      this.hooks.listening.call(app, caviarOptions)
+      await new Promise(() => {
+        app.listen(config.port, () => {
+          this.hooks.listening.call(app, caviarOptions)
+        })
+      })
     }
 
     return app
