@@ -131,6 +131,11 @@ module.exports = class RoeBlock extends Block {
   async _ready (config, caviarOptions) {
     const app = this.outlet
 
+    if (config.router) {
+      config.router(app)
+      this.hooks.routerLoaded.call(app, caviarOptions)
+    }
+
     // Load roe
     await new Promise((resolve, reject) => {
       app.ready(err => {
@@ -143,17 +148,13 @@ module.exports = class RoeBlock extends Block {
       })
     })
 
-    if (config.router) {
-      config.router(app)
-      this.hooks.routerLoaded.call(app, caviarOptions)
-    }
-
     this.hooks.loaded.call(app, caviarOptions)
 
     if (config.port) {
-      await new Promise(() => {
+      await new Promise(resolve => {
         app.listen(config.port, () => {
           this.hooks.listening.call(app, caviarOptions)
+          resolve()
         })
       })
     }
