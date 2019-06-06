@@ -1,4 +1,5 @@
 const {isFunction, isObject} = require('core-util-is')
+const log = require('util').debuglog('caviar:roe-block')
 const {Roe} = require('roe')
 const {
   SyncHook
@@ -98,7 +99,7 @@ module.exports = class RoeBlock extends Block {
       serverConfig: new SyncHook(['serverConfig', 'caviarOptions']),
       routerLoaded: new SyncHook(['app', 'caviarOptions']),
       loaded: new SyncHook(['app', 'caviarOptions']),
-      listening: new SyncHook(['app', 'caviarOptions'])
+      listening: new SyncHook(['port', 'caviarOptions'])
     }
   }
 
@@ -153,7 +154,8 @@ module.exports = class RoeBlock extends Block {
     if (config.port) {
       await new Promise(resolve => {
         app.listen(config.port, () => {
-          this.hooks.listening.call(app, caviarOptions)
+          this.hooks.listening.call(config.port, caviarOptions)
+          log('server started at http://localhost:%s', config.port)
           resolve()
         })
       })
