@@ -151,11 +151,12 @@ module.exports = class RoeBlock extends Block {
 
     this.hooks.loaded.call(app, caviarOptions)
 
-    if (config.port) {
+    const {port} = config
+    if (port) {
       await new Promise(resolve => {
-        app.listen(config.port, () => {
-          this.hooks.listening.call(config.port, caviarOptions)
-          log('server started at http://localhost:%s', config.port)
+        app.listen(port, () => {
+          this.hooks.listening.call(port, caviarOptions)
+          log('server started at http://localhost:%s', port)
           resolve()
         })
       })
