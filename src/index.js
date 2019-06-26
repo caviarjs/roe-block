@@ -103,11 +103,7 @@ module.exports = class RoeBlock extends Block {
     }
   }
 
-  async _build () {
-    // do nothing
-  }
-
-  _create (config, caviarOptions) {
+  create (config, caviarOptions) {
     const {cwd, pkg} = caviarOptions
 
     return new Roe({
@@ -129,7 +125,7 @@ module.exports = class RoeBlock extends Block {
   // - caviarOptions `Object`
   //   - cwd
   //   - dev
-  async _ready (config, caviarOptions) {
+  async run (config, caviarOptions) {
     const app = this.outlet
 
     if (config.router) {
