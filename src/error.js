@@ -1,9 +1,8 @@
-const {Errors, exitOnNotDefined} = require('err-object')
+const {Errors} = require('err-object')
 
 const {error, TE} = new Errors({
   messagePrefix: '[@caviar/roe-block] ',
-  codePrefix: 'CAVIAR_ROE_',
-  notDefined: exitOnNotDefined
+  codePrefix: 'CAVIAR_ROE_'
 })
 
 TE('INVALID_SERVER_ANCHOR_TYPE',
