@@ -129,7 +129,6 @@ module.exports = class RoeBlock extends Block {
     const app = this.outlet
 
     if (config.router) {
-      console.log('load router')
       config.router(app)
       this.hooks.routerLoaded.call(app, caviarOptions)
     }
