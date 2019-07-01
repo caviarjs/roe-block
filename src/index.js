@@ -129,6 +129,7 @@ module.exports = class RoeBlock extends Block {
     const app = this.outlet
 
     if (config.router) {
+      console.log('load router')
       config.router(app)
       this.hooks.routerLoaded.call(app, caviarOptions)
     }
@@ -147,7 +148,8 @@ module.exports = class RoeBlock extends Block {
 
     this.hooks.loaded.call(app, caviarOptions)
 
-    const {port} = config
+    const port = parseInt(config.port, 10)
+
     if (port) {
       await new Promise(resolve => {
         app.listen(port, () => {
