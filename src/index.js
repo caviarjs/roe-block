@@ -1,5 +1,5 @@
 const {isFunction, isObject} = require('core-util-is')
-const log = require('util').debuglog('caviar:roe-block')
+// const log = require('util').debuglog('caviar:roe-block')
 const {Roe} = require('roe')
 const {
   SyncHook
@@ -147,19 +147,23 @@ module.exports = class RoeBlock extends Block {
 
     this.hooks.loaded.call(app, caviarOptions)
 
-    const port = parseInt(config.port, 10)
-
-    if (port) {
-      await new Promise(resolve => {
-        app.listen(port, () => {
-          this.hooks.listening.call(port, caviarOptions)
-          log('server started at http://localhost:%s', port)
-          resolve()
-        })
-      })
-    }
+    this._port = parseInt(config.port, 10) || undefined
 
     return app
+  }
+
+  async listen () {
+    const port = this._port
+    if (!port) {
+      return
+    }
+
+    return new Promise(resolve => {
+      this.outlet.listen(port, () => {
+        this.hooks.listening.call(port, this.options)
+        resolve(port)
+      })
+    })
   }
 
   // Custom public methods
