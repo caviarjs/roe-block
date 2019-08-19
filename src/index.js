@@ -75,7 +75,7 @@ module.exports = class RoeBlock extends Block {
   constructor () {
     super()
 
-    // Binder will check the config structure
+    // Mixer will check the config structure
     // this.config is a setter
     this.config = {
       server: {

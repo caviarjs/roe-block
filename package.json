@@ -52,6 +52,6 @@
     "tapable": "^1.1.3"
   },
   "peerDependencies": {
-    "caviar": "^3.0.0"
+    "caviar": "^4.0.0"
   }
 }
