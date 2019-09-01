@@ -148,8 +148,6 @@ module.exports = class RoeBlock extends Block {
     this.hooks.loaded.call(app, caviarOptions)
 
     this._port = parseInt(config.port, 10) || undefined
-
-    return app
   }
 
   async listen () {
