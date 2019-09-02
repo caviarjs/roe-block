@@ -19,10 +19,10 @@ const {error} = require('./error')
 const composeConfig = ({
   prev,
   anchor,
-  configFilepath
+  configFile
 }) => {
   if (!isFunction(anchor)) {
-    throw error('INVALID_SERVER_ANCHOR_TYPE', configFilepath, anchor)
+    throw error('INVALID_SERVER_ANCHOR_TYPE', configFile, anchor)
   }
 
   return (appInfo, config = {}) => {
@@ -33,7 +33,7 @@ const composeConfig = ({
     config = anchor(appInfo, config)
 
     if (!isObject(config)) {
-      throw error('INVALID_SERVER_ANCHOR_RETURN_TYPE', configFilepath, config)
+      throw error('INVALID_SERVER_ANCHOR_RETURN_TYPE', configFile, config)
     }
 
     return config
@@ -52,10 +52,10 @@ const NOOP = () => {}
 const composeRouter = ({
   prev = NOOP,
   anchor,
-  configFilepath
+  configFile
 }) => {
   if (!isFunction(anchor)) {
-    throw error('INVALID_ROUTER_ANCHOR_TYPE', configFilepath, anchor)
+    throw error('INVALID_ROUTER_ANCHOR_TYPE', configFile, anchor)
   }
 
   return app => {
