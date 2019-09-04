@@ -1,6 +1,6 @@
 {
   "name": "@caviar/roe-block",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Caviar block for roe",
   "main": "src/index.js",
   "scripts": {
@@ -52,6 +52,6 @@
     "tapable": "^1.1.3"
   },
   "peerDependencies": {
-    "caviar": "^5.0.0"
+    "caviar": "^5.0.1"
   }
 }
