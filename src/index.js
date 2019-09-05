@@ -126,7 +126,7 @@ module.exports = class RoeBlock extends Block {
   //   - cwd
   //   - dev
   async run (config, caviarOptions) {
-    const app = this.outlet
+    const app = this.created
 
     if (config.router) {
       config.router(app)
@@ -157,7 +157,7 @@ module.exports = class RoeBlock extends Block {
     }
 
     return new Promise(resolve => {
-      this.outlet.listen(port, () => {
+      this.created.listen(port, () => {
         this.hooks.listening.call(port, this.options)
         resolve(port)
       })
@@ -166,6 +166,6 @@ module.exports = class RoeBlock extends Block {
 
   // Custom public methods
   middleware () {
-    return this.outlet.callback()
+    return this.created.callback()
   }
 }
