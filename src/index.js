@@ -1,4 +1,5 @@
 const {isFunction, isObject} = require('core-util-is')
+const {join} = require('path')
 // const log = require('util').debuglog('caviar:roe-block')
 const {Roe} = require('roe')
 const {
@@ -8,6 +9,22 @@ const {
   Block
 } = require('caviar')
 const {error} = require('./error')
+
+const UNKNOWN_APP = 'UNKNOWN_APP'
+
+const readProjectName = cwd => {
+  const packageFile = join(cwd, 'package.json')
+
+  try {
+    return require(packageFile).name || UNKNOWN_APP
+  } catch (err) {
+    if (err.code === 'MODULE_NOT_FOUND') {
+      return UNKNOWN_APP
+    }
+
+    throw error('ERR_READ_PKG', cwd, err.stack)
+  }
+}
 
 // Usage
 // ```js
@@ -104,13 +121,13 @@ module.exports = class RoeBlock extends Block {
   }
 
   create (config, caviarOptions) {
-    const {cwd, pkg} = caviarOptions
+    const {cwd} = caviarOptions
 
     return new Roe({
       // framework,
       baseDir: cwd,
       https: false,
-      title: pkg.name,
+      title: readProjectName(cwd),
       type: 'application',
       config: appInfo => {
         const serverConfig = config.server(appInfo)
