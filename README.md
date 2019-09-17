@@ -51,12 +51,12 @@ See [Caviar Blocks]
 
 ### serverConfig `SyncHook`
 
-Triggered after the next config is generated and before using.
+Triggered after roe config is generated and before using.
 
 Callback parameters:
 
-- **serverConfig**
-- **caviarOptions**
+- **serverConfig** `object`
+- **caviarOptions** ``
 
 ### routerConfig
 

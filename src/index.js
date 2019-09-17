@@ -10,20 +10,28 @@ const {
 } = require('caviar')
 const {error} = require('./error')
 
-const UNKNOWN_APP = 'UNKNOWN_APP'
-
 const readProjectName = cwd => {
   const packageFile = join(cwd, 'package.json')
 
+  let pkg
+
   try {
-    return require(packageFile).name || UNKNOWN_APP
+    pkg = require(packageFile)
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
-      return UNKNOWN_APP
+      throw error('PKG_NOT_FOUND', cwd)
     }
 
     throw error('ERR_READ_PKG', cwd, err.stack)
   }
+
+  const {name} = pkg
+
+  if (!name) {
+    throw error('NO_PKG_NAME', packageFile)
+  }
+
+  return name
 }
 
 // Usage

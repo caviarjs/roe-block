@@ -38,12 +38,17 @@
     "url": "https://github.com/caviarjs/roe-block/issues"
   },
   "devDependencies": {
+    "@caviar/test": "^2.0.0",
     "@ostai/eslint-config": "^3.3.2",
     "ava": "^2.2.0",
+    "caviar": "^6.0.0",
     "codecov": "^3.5.0",
     "eslint": "^6.1.0",
     "eslint-plugin-import": "^2.18.2",
-    "nyc": "^14.1.1"
+    "get-port": "^5.0.0",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2",
+    "test-fixture": "^2.4.1"
   },
   "dependencies": {
     "core-util-is": "^1.0.2",
