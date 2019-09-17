@@ -1,6 +1,6 @@
 {
   "name": "@caviar/roe-block",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Caviar block for roe",
   "main": "src/index.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "url": "https://github.com/caviarjs/roe-block/issues"
   },
   "devDependencies": {
-    "@caviar/test": "^2.0.0",
+    "@caviar/test": "^2.0.1",
     "@ostai/eslint-config": "^3.3.2",
     "ava": "^2.2.0",
     "caviar": "^6.0.0",
