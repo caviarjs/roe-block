@@ -58,7 +58,7 @@ Callback parameters:
 - **serverConfig** `object` the composed server configuration
 - **caviarOptions** ``
 
-### routerLoaded
+### routerLoaded `SyncHook`
 
 Triggered after router anchor has been applied.
 
@@ -67,7 +67,7 @@ Callback parameters:
 - **app** `Koa` the roe application
 - **caviarOptions**
 
-### loaded
+### loaded `SyncHook`
 
 Triggered after all components of the roe application has been loaded, including:
 
@@ -81,7 +81,7 @@ Callback parameters:
 - **app**
 - **caviarOptions**
 
-### listening
+### listening `SyncHook`
 
 Triggered when the server is listened to a port
 
