@@ -55,14 +55,39 @@ Triggered after roe config is generated and before using.
 
 Callback parameters:
 
-- **serverConfig** `object`
+- **serverConfig** `object` the composed server configuration
 - **caviarOptions** ``
 
-### routerConfig
+### routerLoaded
 
-Triggered after webpack config is generated and before using.
+Triggered after router anchor has been applied.
 
-- **routerConfig**
+Callback parameters:
+
+- **app** `Koa` the roe application
+- **caviarOptions**
+
+### loaded
+
+Triggered after all components of the roe application has been loaded, including:
+
+- middlewares
+- controllers
+- services
+- plugins
+
+Callback parameters:
+
+- **app**
+- **caviarOptions**
+
+### listening
+
+Triggered when the server is listened to a port
+
+Callback parameters:
+
+- **port** `number` the port the server listening to
 - **caviarOptions**
 
 ## License
